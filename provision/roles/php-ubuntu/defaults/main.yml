@@ -1,0 +1,9 @@
+---
+php_error_reporting: E_ALL & ~E_DEPRECATED
+php_display_errors: 'Off'
+php_upload_max_filesize: 20M
+php_post_max_size: 25M
+php_max_execution_time: 30
+php_memory_limit: 128M
+php_file_uploads: On
+php_max_file_uploads: 20

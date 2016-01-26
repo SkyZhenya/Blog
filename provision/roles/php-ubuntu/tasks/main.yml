@@ -1,0 +1,22 @@
+- name: ensure PHP installed
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - php5
+    - php5-fpm
+    - php5-dev
+    - php5-cli
+    - php5-pgsql
+    - php5-mysql
+    - php5-curl
+    - php5-gd
+    - php5-mcrypt
+    - php5-oauth
+
+- name: make sure /etc/php5/apache2/ directory exists
+  shell: creates=/etc/php5/apache2/ mkdir -p /etc/php5/apache2/
+
+- name: configure Apache PHP settings
+  template: src=apache_php.ini.j2 dest=/etc/php5/apache2/php.ini
+
+- name: configure PHP-FPM settings
+  template: src=fpm_php.ini.j2 dest=/etc/php5/fpm/php.ini

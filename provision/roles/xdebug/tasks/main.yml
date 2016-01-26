@@ -1,0 +1,9 @@
+- name: install xdebug
+  apt: pkg=php5-xdebug state=present
+
+- name: find xdebug.so
+  shell: find /usr/lib -name xdebug.so | head -n 1
+  register: xdebug_module_path
+
+- name: activate xdebug
+  template: src=xdebug.ini.j2 dest=/etc/php5/mods-available/xdebug.ini mode=0644

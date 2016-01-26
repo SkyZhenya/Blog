@@ -1,0 +1,41 @@
+hostname: blog.local
+env: Development
+project_folder: /var/www/Blog
+
+php_error_reporting: E_ALL
+php_display_errors: On
+php_upload_max_filesize: 20M
+php_post_max_size: 25M
+php_max_execution_time: 30
+php_memory_limit: 128M
+php_file_uploads: On
+php_max_file_uploads: 20
+
+nginx_version: 1.8.0
+nginx_worker_processes: 1
+nginx_worker_connections: 1024
+nginx_client_max_body_size: 10M
+nginx_keepalive_requests: 20
+nginx_keepalive_timeout: 30
+nginx_client_header_timeout: 15
+nginx_client_body_timeout: 15
+nginx_send_timeout: 10
+nginx_fastcgi_connect_timeout: 30
+nginx_fastcgi_send_timeout: 30
+nginx_run_user: 'www-data'
+nginx_vhosts: [
+    { server_name: '_', root: '/var/www/Blog', template: 'catch_all'},
+    { server_name: 'blog.local', root: '/var/www/Blog/web', template: 'yii'},
+    { server_name: 'db.blog.local', root: '/usr/share/phpmyadmin', template: 'php'},
+]
+
+mariadb:
+    root_password: root_pass
+    user: blog
+    password: 123456
+    database: blog
+
+mysql_root_pass: "{{mariadb.root_password}}"
+
+xdebug_remote_port: 9000
+xdebug_remote_host: 192.168.25.10

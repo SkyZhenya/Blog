@@ -1,0 +1,41 @@
+---
+# defaults file for nginx
+
+nginx_version: 1.8.0
+nginx_user: nginx
+nginx_group: nginx
+
+nginx_worker_processes: 1 # grep processor /proc/cpuinfo | wc -l
+nginx_worker_connections: 1024 # ulimit -n
+nginx_client_max_body_size: 10M
+nginx_keepalive_requests: 20
+nginx_keepalive_timeout: 30
+nginx_client_header_timeout: 15
+nginx_client_body_timeout: 15
+nginx_send_timeout: 10
+nginx_fastcgi_connect_timeout: 30
+nginx_fastcgi_send_timeout: 30
+
+include_headers_more_nginx_module: true
+headers_more_nginx_module_version: 0.28
+headers_more_nginx_module_base_url: https://github.com/openresty/headers-more-nginx-module/archive/
+
+ssl_certs_folder: '/etc/nginx/certs/'
+ssl_certs_files: [
+      certs/server.cer,
+      certs/server.csr,
+      certs/server.key,
+      certs/CA_bundle.pem
+]
+
+ssl_certificate_file: 'server.cer'
+ssl_certificate_key_file: 'server.key'
+nginx_run_user: 'www-data'
+
+nginx_vhosts: [
+    { server_name: '_', root: '/var/www', template: 'php'},
+    { server_name: 'db.local', root: '/usr/share/phpmyadmin', template: 'php'}
+]
+
+http_basic_auth_file: /etc/nginx/.htpasswd-users
+http_basic_auth_users: []

@@ -1,0 +1,16 @@
+- hosts: dev
+  sudo: true
+  gather_facts: true
+  vars_files:
+    - "vars/dev.yml"
+  roles:
+    - initial
+    - common
+    - php-ubuntu
+    - nginx
+    - composer
+    - xdebug
+    - mariadb
+    - phpmyadmin
+    - after-update
+

@@ -1,0 +1,3 @@
+- name: run migrations
+  sudo: yes
+  shell: cd /var/www/pitapat && php yii migrate --interactive=0

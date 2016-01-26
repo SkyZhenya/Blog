@@ -1,0 +1,46 @@
+---
+- name: Add MariaDB-Repository
+  sudo: yes
+  apt_repository: repo='deb http://lon1.mirrors.digitalocean.com/mariadb/repo/10.1/ubuntu trusty main' state=present
+
+- name: Add Key for MariaDB Repository
+  sudo: yes
+  apt_key: url=http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xcbcb082a1bb943db
+
+- name: Update apt cache
+  sudo: yes
+  apt: update_cache=yes
+
+- name: mariadb | Install MariaDB Packages
+  sudo: yes
+  apt: pkg={{ item }} state=latest
+  with_items:
+    - software-properties-common
+    - mariadb-server
+    - python-mysqldb
+
+- name: mariadb | Update root password for all root accounts
+  mysql_user: name=root host={{ item }} check_implicit_admin=yes password={{ mariadb.root_password }} login_user=root login_password={{ mariadb.root_password }}
+  with_items:
+    - "{{ hostname }}"
+    - 127.0.0.1
+    - ::1
+    - localhost
+  ignore_errors: yes
+
+- name: mariadb | Create databases
+  mysql_db: name={{ mariadb.database }} state=present login_user=root login_password={{ mariadb.root_password }}
+  ignore_errors: yes
+
+- name: copy mariadb config
+  template: src=my.cnf.j2 dest=/etc/mysql/my.cnf owner=root mode=0644
+
+- name: restart mariadb
+  service: name=mysql state=restarted
+
+- name: mariadb | Create users
+  mysql_user: name={{ mariadb.user }} password={{ mariadb.password }} priv=*.*:ALL state=present login_user=root login_password={{ mariadb.root_password }}
+  ignore_errors: yes
+
+- name: copy mariadb root pass config
+  template: src=root_pass_my.cnf.j2 dest=/root/my.cnf owner=root mode=0644
