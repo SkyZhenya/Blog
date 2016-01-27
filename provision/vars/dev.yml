@@ -1,6 +1,6 @@
-hostname: blog.local
+hostname: bloog.local
 env: Development
-project_folder: /var/www/Blog
+project_folder: /var/www/bloog
 
 php_error_reporting: E_ALL
 php_display_errors: On
@@ -24,18 +24,18 @@ nginx_fastcgi_connect_timeout: 30
 nginx_fastcgi_send_timeout: 30
 nginx_run_user: 'www-data'
 nginx_vhosts: [
-    { server_name: '_', root: '/var/www/Blog', template: 'catch_all'},
-    { server_name: 'blog.local', root: '/var/www/Blog/web', template: 'yii'},
-    { server_name: 'db.blog.local', root: '/usr/share/phpmyadmin', template: 'php'},
+    { server_name: '_', root: '/var/www/bloog/web', template: 'catch_all'},
+    { server_name: 'bloog.local', root: '/var/www/bloog/web', template: 'yii'},
+    { server_name: 'db.bloog.local', root: '/usr/share/phpmyadmin', template: 'php'},
 ]
 
 mariadb:
     root_password: root_pass
-    user: blog
+    user: bloog
     password: 123456
-    database: blog
+    database: bloog
 
 mysql_root_pass: "{{mariadb.root_password}}"
 
 xdebug_remote_port: 9000
-xdebug_remote_host: 192.168.25.10
+xdebug_remote_host: 192.168.18.18

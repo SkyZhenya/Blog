@@ -7,11 +7,11 @@ VAGRANTFILE_API_VERSION = "2"
 Vagrant.require_version ">= 1.7.2"
 
 # CONSTANTS
-BOX_NAME = "blog"
-HOST_NAME = "blog.local"
-HOST_NAME_ALIASES = ["blog.local", "db.blog.local"]
+BOX_NAME = "bloog"
+HOST_NAME = "bloog.local"
+HOST_NAME_ALIASES = ["db.bloog.local"]
 PRIVATE_IP = "192.168.18.18"
-SYNCED_FOLDER = "Blog"
+SYNCED_FOLDER = "bloog"
 ANSIBLE_PLAYBOOK = "provision/dev.yml"
 ANSIBLE_INVENTORY_PATH = "provision/dev"
 

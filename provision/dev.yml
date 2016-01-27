@@ -4,13 +4,13 @@
   vars_files:
     - "vars/dev.yml"
   roles:
-    - initial
-    - common
-    - php-ubuntu
+#    - initial
+#    - common
+#    - php-ubuntu
     - nginx
-    - composer
-    - xdebug
-    - mariadb
-    - phpmyadmin
-    - after-update
+#    - composer
+#    - xdebug
+#    - mariadb
+#    - phpmyadmin
+#    - after-update
 
